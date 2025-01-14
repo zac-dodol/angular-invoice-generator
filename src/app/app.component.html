@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <app-header></app-header>
+  <div class="row">
+    <div class="col-md-6">
+      <app-invoice-form (generateInvoice)="onGenerateInvoice($event)"></app-invoice-form>
+    </div>
+    <div class="col-md-6">
+      <app-invoice-preview [invoiceData]="invoiceData"></app-invoice-preview>
+    </div>
+  </div>
+</div>
+

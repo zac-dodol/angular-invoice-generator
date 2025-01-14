@@ -1,0 +1,75 @@
+<div
+  *ngIf="invoiceData; else noInvoice"
+  id="invoice-preview"
+  class="border p-4"
+>
+  <div class="text-center mb-4">
+    <img
+      src="assets/logo.png"
+      alt="Company Logo"
+      width="100"
+      height="100"
+      class="mb-2"
+    />
+    <h2 class="h4">Khalifah Hazim Services</h2>
+    <div class="d-grid">
+      <span>13C, 3rd Floor, Block 1, Worldwide Business Park,</span>
+      <span>Jalan Tinju 13/50, Seksyen 13,</span>
+      <span>40675 Shah Alam, Selangor Darul Ehsan</span>
+    </div>
+    <p>Phone: +60 18 244 3037 | Email: khservices@gmail.com</p>
+  </div>
+  <div class="row mb-4">
+    <div class="col-md-6 d-grid">
+      <h6>To:</h6>
+      <span><strong>{{ invoiceData.clientName }}</strong></span>
+      <span>{{ invoiceData.clientAddress }}</span>
+      <span>{{ invoiceData.clientContact }}</span>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <p><strong>Invoice Date:</strong> {{ invoiceData.date }}</p>
+      <p><strong>Invoice Number:</strong> {{ invoiceData.invoiceNumber }}</p>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of invoiceData.items">
+        <td>{{ item.description }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price | currency }}</td>
+        <td>{{ item.quantity * item.price | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-end">
+    <p><strong>Subtotal:</strong> {{ invoiceData.total | currency }}</p>
+    <p><strong>SST (10%):</strong> {{ invoiceData.sst | currency }}</p>
+    <p><strong>Grand Total:</strong> {{ invoiceData.grandTotal | currency }}</p>
+  </div>
+  <div class="row mt-5">
+    <div class="col-6">
+      <p>Company Representative Signature</p>
+      <div class="border-bottom border-dark" style="height: 40px;"></div>
+    </div>
+    <div class="col-6">
+      <p>Client Signature</p>
+      <div class="border-bottom border-dark" style="height: 40px;"></div>
+    </div>
+  </div>
+  <div id="download-button-container">
+    <button class="btn btn-success mt-3" (click)="downloadPDF()">
+      Download PDF
+    </button>
+  </div>
+</div>
+<ng-template #noInvoice>
+  <div class="text-center">No invoice generated yet.</div>
+</ng-template>

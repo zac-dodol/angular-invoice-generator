@@ -1,0 +1,88 @@
+<form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="mb-4">
+  <div class="mb-3">
+    <label for="clientName" class="form-label">Client Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="clientName"
+      formControlName="clientName"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="clientContact" class="form-label">Client Contact</label>
+    <input
+      type="text"
+      class="form-control"
+      id="clientContact"
+      formControlName="clientContact"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="clientAddress" class="form-label"
+      >Client
+      <address></address
+    ></label>
+    <input
+      type="text"
+      class="form-control"
+      id="clientAddress"
+      formControlName="clientAddress"
+      required
+    />
+  </div>
+  <div formArrayName="items">
+    <div
+      *ngFor="let item of items.controls; let i = index"
+      [formGroupName]="i"
+      class="mb-3"
+    >
+      <h5>Item {{ i + 1 }}</h5>
+      <div class="mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Description"
+          formControlName="description"
+          required
+        />
+      </div>
+      <div class="row">
+        <div class="col">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Quantity"
+            formControlName="quantity"
+            required
+          />
+        </div>
+        <div class="col">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Price"
+            formControlName="price"
+            required
+          />
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-danger" (click)="removeItem(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary mb-3" (click)="addItem()">
+    Add Item
+  </button>
+  <button
+    type="submit"
+    class="btn btn-primary d-block w-100"
+    [disabled]="!invoiceForm.valid"
+  >
+    Generate Invoice
+  </button>
+</form>
